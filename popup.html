@@ -2,18 +2,24 @@
 <html>
 <head>
   <title>Shopping List</title>
-  <style>
-    body { font-family: Arial, sans-serif; width: 300px; }
-    #list { list-style: none; padding: 0; }
-    .item { display: flex; align-items: center; margin-bottom: 10px; }
-    .item img { width: 50px; height: 50px; margin-right: 10px; }
-  </style>
+  <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 <body>
-  <h1>Shopping List</h1>
-  <ul id="list"></ul>
-  <button id="save">Save List</button>
-  <button id="clear">Clear List</button>
+  <div class="container">
+    <header>
+      <h1>Shopping List</h1>
+    </header>
+    <section class="top-items">
+      <input type="text" id="search" placeholder="Search items...">
+      <h2>Top Items</h2>
+      <ul id="list"></ul>
+    </section>
+    <footer>
+      <button id="save">Save List</button>
+      <button id="clear">Clear List</button>
+    </footer>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
+
