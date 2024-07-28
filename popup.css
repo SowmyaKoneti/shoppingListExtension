@@ -79,6 +79,9 @@ header h1 {
 }
 
 #lists li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
@@ -87,7 +90,7 @@ header h1 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 14px;
   color: #007bff;
-  text-align: center;
+  text-align: left;
 }
 
 #lists li:hover {
@@ -111,9 +114,10 @@ header h1 {
 }
 
 .item { 
-  display: flex; 
-  align-items: center; 
-  margin-bottom: 10px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 4px;
@@ -163,10 +167,29 @@ footer button:hover {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
 }
 
 #back:hover {
   background-color: #999;
+}
+
+
+.remove-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  color: rgb(106, 99, 99);
+  font-size: 14px;
+  margin-right: 10px; 
+}
+
+.folder, .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#item-container {
+  display: none;
 }
