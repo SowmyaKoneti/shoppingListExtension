@@ -130,26 +130,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const title = document.title || 'No title found';
     return { url, imgSrc, title };
   }
-});
 
-function removeList(listName) {
-  chrome.storage.local.get('lists', function(data) {
-    const lists = data.lists || {};
-    delete lists[listName];
-    chrome.storage.local.set({ lists }, function() {
-      const listItems = document.querySelectorAll(`li[data-list-name="${listName}"]`);
-      listItems.forEach(item => item.remove());
+  function removeList(listName) {
+    chrome.storage.local.get('lists', function(data) {
+      const lists = data.lists || {};
+      delete lists[listName];
+      chrome.storage.local.set({ lists }, function() {
+        const listItems = document.querySelectorAll(`li[data-list-name="${listName}"]`);
+        listItems.forEach(item => item.remove());
+      });
     });
-  });
-}
+  }
 
-function removeItem(url) {
-  chrome.storage.local.get('lists', function(data) {
-    const lists = data.lists || {};
-    const listItems = lists[currentListName];
-    if (listItems) {
-      lists[currentListName] = listItems.filter(item => item.url !== url);
-      chrome.storage.local.set({ lists });
-    }
-  });
-}
+  function removeItem(url) {
+    chrome.storage.local.get('lists', function(data) {
+      const lists = data.lists || {};
+      const listItems = lists[currentListName];
+      if (listItems) {
+        lists[currentListName] = listItems.filter(item => item.url !== url);
+        chrome.storage.local.set({ lists });
+      }
+    });
+  }
+});
