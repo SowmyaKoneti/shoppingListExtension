@@ -18,9 +18,11 @@ function getProductInfo() {
   const metaOgImage = document.querySelector('meta[property="og:image"]');
   const imgSrc = metaOgImage ? metaOgImage.content : '';
   const url = window.location.href;
+  const title = document.title || 'No title found';
 
-  return { url, imgSrc };
+  return { url, imgSrc, title };
 }
 
 // Return the product info
 getProductInfo();
+

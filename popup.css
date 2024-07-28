@@ -115,7 +115,6 @@ header h1 {
 
 .item { 
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   background-color: #f9f9f9;
@@ -135,6 +134,9 @@ header h1 {
   text-decoration: none;
   color: #007bff;
   font-size: 14px;
+  display: inline-block;
+  max-width: 200px;
+  word-wrap: break-word;
 }
 
 footer {
@@ -174,7 +176,6 @@ footer button:hover {
 #back:hover {
   background-color: #999;
 }
-
 
 .remove-icon {
   margin-left: 10px;

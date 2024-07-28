@@ -86,18 +86,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const li = document.createElement('li');
     li.textContent = listName;
     li.dataset.listName = listName;
-  
+
     const removeIcon = document.createElement('i');
     removeIcon.className = 'fas fa-times remove-icon';
-    removeIcon.addEventListener('click', function (e) {
+    removeIcon.addEventListener('click', function(e) {
       e.stopPropagation();
       removeList(listName);
     });
-  
+
     li.appendChild(removeIcon);
     listsElement.appendChild(li);
   }
-  
 
   function showListItems(listName) {
     list.innerHTML = '';
@@ -111,25 +110,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const li = document.createElement('li');
     li.className = 'item';
     li.dataset.url = item.url;
-    li.innerHTML = `<img src="${item.imgSrc}" alt=""><a href="${item.url}" target="_blank">${item.url}</a>`;
-  
+    li.innerHTML = `<img src="${item.imgSrc}" alt=""><a href="${item.url}" target="_blank">${item.title}</a>`;
+
     const removeIcon = document.createElement('i');
     removeIcon.className = 'fas fa-times remove-icon';
-    removeIcon.addEventListener('click', function () {
+    removeIcon.addEventListener('click', function() {
       removeItem(item.url);
       li.remove();
     });
-  
+
     li.appendChild(removeIcon);
     list.appendChild(li);
   }
-  
 
   function getProductInfo() {
     const metaOgImage = document.querySelector('meta[property="og:image"]');
     const imgSrc = metaOgImage ? metaOgImage.content : '';
     const url = window.location.href;
-    return { url, imgSrc };
+    const title = document.title || 'No title found';
+    return { url, imgSrc, title };
   }
 });
 
