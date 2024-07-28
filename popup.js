@@ -1,31 +1,53 @@
 document.addEventListener('DOMContentLoaded', function() {
   const list = document.getElementById('list');
-  const saveButton = document.getElementById('save');
-  const clearButton = document.getElementById('clear');
+  const listsContainer = document.querySelector('.lists');
+  const topItemsContainer = document.querySelector('.top-items');
+  const addListButton = document.getElementById('add-list');
+  const listNameInput = document.getElementById('list-name');
+  const listsElement = document.getElementById('lists');
+  const backButton = document.getElementById('back');
   const captureButton = document.getElementById('capture');
+  const clearButton = document.getElementById('clear');
+  const currentListNameElement = document.getElementById('current-list-name');
+  let currentListName = '';
 
-  // Load saved items
-  chrome.storage.local.get('shoppingList', function(data) {
-    const items = data.shoppingList || [];
-    items.forEach(item => addItemToList(item));
+  // Load saved lists
+  chrome.storage.local.get('lists', function(data) {
+    const lists = data.lists || {};
+    for (const listName in lists) {
+      addListToDOM(listName);
+    }
   });
 
-  // Save the list
-  saveButton.addEventListener('click', function() {
-    const items = [];
-    document.querySelectorAll('.item').forEach(itemElement => {
-      items.push({
-        url: itemElement.dataset.url,
-        imgSrc: itemElement.querySelector('img').src
+  // Add a new list
+  addListButton.addEventListener('click', function() {
+    const listName = listNameInput.value.trim();
+    if (listName && !document.querySelector(`li[data-list-name="${listName}"]`)) {
+      addListToDOM(listName);
+      chrome.storage.local.get('lists', function(data) {
+        const lists = data.lists || {};
+        lists[listName] = [];
+        chrome.storage.local.set({ lists });
       });
-    });
-    chrome.storage.local.set({ shoppingList: items });
+    }
+    listNameInput.value = '';
   });
 
-  // Clear the list
-  clearButton.addEventListener('click', function() {
-    chrome.storage.local.set({ shoppingList: [] });
-    list.innerHTML = '';
+  // Show items in a list
+  listsElement.addEventListener('click', function(event) {
+    if (event.target.tagName === 'LI') {
+      currentListName = event.target.dataset.listName;
+      currentListNameElement.textContent = currentListName;
+      showListItems(currentListName);
+      listsContainer.style.display = 'none';
+      topItemsContainer.style.display = 'block';
+    }
+  });
+
+  // Back to lists view
+  backButton.addEventListener('click', function() {
+    listsContainer.style.display = 'block';
+    topItemsContainer.style.display = 'none';
   });
 
   // Capture the current page
@@ -33,22 +55,47 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        func: getProductInfo
+        function: getProductInfo
       }, function(results) {
         if (results && results[0] && results[0].result) {
           const newItem = results[0].result;
           addItemToList(newItem);
 
           // Save the new item to the storage
-          chrome.storage.local.get('shoppingList', function(data) {
-            const shoppingList = data.shoppingList || [];
-            shoppingList.push(newItem);
-            chrome.storage.local.set({ shoppingList });
+          chrome.storage.local.get('lists', function(data) {
+            const lists = data.lists || {};
+            lists[currentListName].push(newItem);
+            chrome.storage.local.set({ lists });
           });
         }
       });
     });
   });
+
+  // Clear the current list
+  clearButton.addEventListener('click', function() {
+    chrome.storage.local.get('lists', function(data) {
+      const lists = data.lists || {};
+      lists[currentListName] = [];
+      chrome.storage.local.set({ lists });
+      list.innerHTML = '';
+    });
+  });
+
+  function addListToDOM(listName) {
+    const li = document.createElement('li');
+    li.textContent = listName;
+    li.dataset.listName = listName;
+    listsElement.appendChild(li);
+  }
+
+  function showListItems(listName) {
+    list.innerHTML = '';
+    chrome.storage.local.get('lists', function(data) {
+      const items = (data.lists && data.lists[listName]) || [];
+      items.forEach(item => addItemToList(item));
+    });
+  }
 
   function addItemToList(item) {
     const li = document.createElement('li');
@@ -58,12 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
     list.appendChild(li);
   }
 
-  // This function will be injected into the active tab's context
   function getProductInfo() {
     const metaOgImage = document.querySelector('meta[property="og:image"]');
     const imgSrc = metaOgImage ? metaOgImage.content : '';
     const url = window.location.href;
-
     return { url, imgSrc };
   }
 });

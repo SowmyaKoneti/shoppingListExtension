@@ -9,16 +9,23 @@
     <header>
       <h1>Shopping List</h1>
     </header>
-    <section class="top-items">
-      <input type="text" id="search" placeholder="Search items...">
-      <h2>Top Items</h2>
-      <ul id="list"></ul>
+    <section class="new-list">
+      <input type="text" id="list-name" placeholder="New list name...">
+      <button id="add-list">create list</button>
     </section>
-    <footer>
-      <button id="capture">Add Current Page</button>
-      <button id="save">Save List</button>
-      <button id="clear">Clear List</button>
-    </footer>
+    <section class="lists">
+      <h2>Lists</h2>
+      <ul id="lists"></ul>
+    </section>
+    <section class="top-items" style="display: none;">
+      <button id="back">Back</button>
+      <h2 id="current-list-name">Top Items</h2>
+      <ul id="list"></ul>
+      <footer>
+        <button id="capture">Add Current Page</button>
+        <button id="clear">Clear List</button>
+      </footer>
+    </section>
   </div>
   <script src="popup.js"></script>
 </body>

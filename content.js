@@ -14,3 +14,13 @@
 //   //   chrome.storage.local.set({ shoppingList });
 //   // });
   
+function getProductInfo() {
+  const metaOgImage = document.querySelector('meta[property="og:image"]');
+  const imgSrc = metaOgImage ? metaOgImage.content : '';
+  const url = window.location.href;
+
+  return { url, imgSrc };
+}
+
+// Return the product info
+getProductInfo();

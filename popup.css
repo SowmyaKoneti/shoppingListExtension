@@ -29,6 +29,71 @@ header h1 {
   font-size: 24px;
 }
 
+.new-list {
+  padding: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-list input {
+  width: calc(100% - 100px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.new-list button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.new-list button:hover {
+  background-color: #0056b3;
+}
+
+.lists {
+  padding: 20px;
+  padding-top: 0;
+}
+
+.lists h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#lists {
+  list-style: none;
+  padding: 0; 
+  margin: 0;
+}
+
+#lists li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #007bff;
+  text-align: center;
+}
+
+#lists li:hover {
+  background-color: #e6e6e6;
+}
+
 .top-items {
   padding: 20px;
 }
@@ -38,17 +103,6 @@ header h1 {
   margin-bottom: 10px;
   color: #333;
 }
-
-#search {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-
 
 #list { 
   list-style: none; 
@@ -100,4 +154,19 @@ footer button {
 
 footer button:hover {
   background-color: #0056b3;
+}
+
+#back {
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#back:hover {
+  background-color: #999;
 }
